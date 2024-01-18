@@ -8,60 +8,40 @@ public class FileIO {
 
     }
 
-    public void writeToFile(Book obj) throws IOException {
-        FileOutputStream  opFOS = new FileOutputStream(f1, true);
-        //DataOutputStream opDOS = new DataOutputStream(opFOS);
-        ObjectOutputStream opOOS = new ObjectOutputStream(opFOS);
-        /*opDOS.writeUTF(
-                "\n" + obj.bookID
-                + "," + obj.bookName
-                + "," + obj.authorName
-                + "," + obj.publication
-                + "," + obj.dateofPublication
-                + "," + obj.priceofBook);*/
-        opOOS.writeObject(obj);
-        opOOS.close();
-        opFOS.close();
+    public void writeToFile(ArrayList<Book> books) throws IOException {
+//        FileOutputStream  opFOS = new FileOutputStream(f1);
+//        ObjectOutputStream opOOS = new ObjectOutputStream(opFOS);
+//        opOOS.writeObject(books);
+        try (ObjectOutputStream opOOS = new ObjectOutputStream(new FileOutputStream(f1, true))) {
+            opOOS.writeObject(books);
+        }
+//        opOOS.close();
+//        opFOS.close();
     }
 
-    public Book readFromFile() throws IOException, ClassNotFoundException {
-        FileInputStream ipFIS = new FileInputStream(f1);
-        ObjectInputStream ipOIS = new ObjectInputStream(ipFIS);
-        Book bo = new Book();
-        bo = (Book) ipOIS.readObject();
-        //ArrayList approach
-        /*ArrayList<Book> booksList = new ArrayList<>();
-        boolean cont = true;
-        while (cont) {
-            try (ObjectInputStream input = new ObjectInputStream(ipFIS)) {
-                Book obj = (Book) ipOIS.readObject();
-                if (obj != null) {
-                    booksList.add(obj);
-                } else {
-                    cont = false;
-                }
-            } catch (Exception e) {
-                // System.out.println(e.printStackTrace());
-            }
-        }*/
-        /*DataInputStream ipDIS = new DataInputStream(ipFIS);
-        Date dateofPubl;
-        String str;
-        int i = 3;
-        while (i>0){
-            str = ipDIS.readLine();
-            bo.bookID = Integer.parseInt(str.split(",")[0]);
-            bo.bookName = str.split(",")[1];
-            bo.authorName = str.split(",")[2];
-            bo.publication = str.split(",")[3];
-//          dateofPubl = new Date(str.split(",")[4]);
-//          bo.dateofPublication = dateofPubl;
-            bo.priceofBook = Integer.parseInt(ipDIS.readLine().split(",")[5]);
-            System.out.println(bo.bookID + "\t" + bo.bookName + "\t"+ bo.authorName + "\t" + bo.publication + "\t" + bo.priceofBook );
-            i--;
-        }*/
-        ipOIS.close();
-        ipFIS.close();
-        return bo;
+    public ArrayList<Book> readFromFile() throws IOException, ClassNotFoundException {
+//        FileInputStream ipFIS = new FileInputStream(f1);
+//        ObjectInputStream ipOIS = new ObjectInputStream(ipFIS);
+////        Single Object Approach
+////        Book bo = new Book();
+////        bo = (Book) ipOIS.readObject();
+//        //ArrayList approach
+//        ArrayList<Book> booksList = new ArrayList<>();
+//        try {
+//            while (true){
+//                booksList = (ArrayList<Book>) ipOIS.readObject();
+//            }
+//        }catch (EOFException e){
+//            System.out.println("end of file reached");
+//        }
+//
+//        ipOIS.close();
+//        ipFIS.close();
+//        return booksList;
+        ArrayList<Book> booksList;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f1))) {
+                booksList = (ArrayList<Book>) ois.readObject();
+        }
+        return booksList;
     }
 }

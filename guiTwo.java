@@ -23,7 +23,7 @@ public class guiTwo extends JFrame {
     FileIO fio = new FileIO();
     Book bo = new Book();
 
-    ArrayList<Book> booksList;
+    //ArrayList<Book> booksList;
 
 
     public guiTwo() throws IOException, ClassNotFoundException {
@@ -31,22 +31,12 @@ public class guiTwo extends JFrame {
         setSize(800, 450);
         setVisible(true);
         bookField.setEditable(false);
-        /*int i = 3;
-        while (i > 0) {
-            bo = fio.readFromFile();
-
-            bookField.append("\t" + bo.bookID + "\t" + bo.bookName + "\t" + bo.authorName + "\t" + bo.publication + "\t" + bo.dateofPublication + "\t" + bo.priceofBook + "\n");
-            i--;
-        }
-        bookField.setLineWrap(true);*/
         //ArrayList Approach
-        /*booksList = fio.<Book>readFromFile();
+        ArrayList<Book> booksList = fio.readFromFile();
         for (Book b : booksList) {
             System.out.println(b.bookID + "\t" + b.bookName + "\t" + b.authorName + "\t" + b.publication + "\t" + b.dateofPublication + "\t" + b.priceofBook);
             bookField.append("\t" + b.bookID + "\t" + b.bookName + "\t" + b.authorName + "\t" + b.publication + "\t" + b.dateofPublication + "\t" + b.priceofBook + "\n");
-        }*/
-        bo = fio.readFromFile();
-        bookField.append("\t" + bo.bookID + "\t" + bo.bookName + "\t" + bo.authorName + "\t" + bo.publication + "\t" + bo.dateofPublication + "\t" + bo.priceofBook + "\n");
+        }
     }
 
     {

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class guiOne extends JFrame {
@@ -32,14 +33,16 @@ public class guiOne extends JFrame {
     private JLabel Publication;
     private JLabel PriceofBook;
     public JTextField outputField;
+    public JButton sendList;
     public JPanel oPpanel;
+
+    ArrayList<Book> booksList = new ArrayList<>();
 
     FileIO fio = new FileIO();
 
     public guiOne() throws IOException {
         setContentPane(mainPanel);
         setSize(800, 450);
-        outputField.setVisible(false);
         setVisible(true);
         submitDetailsButton.addActionListener(new ActionListener() {
             @Override
@@ -59,19 +62,47 @@ public class guiOne extends JFrame {
                         publication.getText(),
                         dateofPubl,
                         Integer.parseInt(priceofBook.getText()));
+                booksList.add(ipObj);
 
-                try {
-                    fio.writeToFile(ipObj);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+//                try {
+//                    fio.writeToFile(booksList);
+//                } catch (IOException ex) {
+//                    throw new RuntimeException(ex);
+//                }
 
                 outputField.setText("Book Details Entered!");
                 outputField.setEditable(false);
                 outputField.setVisible(true);
-                submitDetailsButton.setEnabled(false);
+                reset();
             }
         });
+        sendList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                writeBooksToFile();
+            }
+        });
+    }
+
+    public void writeBooksToFile() {
+        try {
+            fio.writeToFile(booksList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void reset() {
+        ArrayList<JTextField> fieldList = new ArrayList<>();
+        fieldList.add(bookId);
+        fieldList.add(bookName);
+        fieldList.add(authorName);
+        fieldList.add(publication);
+        fieldList.add(dateofPublication);
+        fieldList.add(priceofBook);
+        for (JTextField field : fieldList) {
+            field.setText("");
+        }
     }
 
     {
@@ -90,7 +121,7 @@ public class guiOne extends JFrame {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new FormLayout("fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
+        mainPanel.setLayout(new FormLayout("fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
         mainPanel.setAutoscrolls(true);
         mainPanel.setForeground(new Color(-13882309));
         mainPanel.setMinimumSize(new Dimension(800, 450));
@@ -162,7 +193,10 @@ public class guiOne extends JFrame {
         mainPanel.add(submitDetailsButton, cc.xy(1, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
         outputField = new JTextField();
         outputField.setForeground(new Color(-13882309));
-        mainPanel.add(outputField, cc.xy(1, 7, CellConstraints.FILL, CellConstraints.DEFAULT));
+        mainPanel.add(outputField, cc.xy(1, 9, CellConstraints.FILL, CellConstraints.DEFAULT));
+        sendList = new JButton();
+        sendList.setText("Send Books List");
+        mainPanel.add(sendList, cc.xy(1, 7, CellConstraints.CENTER, CellConstraints.DEFAULT));
     }
 
     /**
