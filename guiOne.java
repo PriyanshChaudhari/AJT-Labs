@@ -32,9 +32,10 @@ public class guiOne extends JFrame {
     private JLabel AuthorName;
     private JLabel Publication;
     private JLabel PriceofBook;
-    public JTextField outputField;
     public JButton sendList;
     public JPanel oPpanel;
+
+    JDialog dialog = new JDialog(this);
 
     ArrayList<Book> booksList = new ArrayList<>();
 
@@ -47,6 +48,11 @@ public class guiOne extends JFrame {
         submitDetailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                dialog.setLocationRelativeTo(submitDetailsButton);
+                dialog.setModal(true);
+                dialog.add(new JLabel("Book Details Entered!"));
+                dialog.setSize(200, 150);
 
                 Date dateofPubl;
                 try {
@@ -65,21 +71,26 @@ public class guiOne extends JFrame {
                 booksList.add(ipObj);
 
 //                try {
-//                    fio.writeToFile(booksList);
+//                    //fio.writeToFile(booksList);
+//                    fio.writeToFile2(ipObj);
 //                } catch (IOException ex) {
 //                    throw new RuntimeException(ex);
 //                }
 
-                outputField.setText("Book Details Entered!");
-                outputField.setEditable(false);
-                outputField.setVisible(true);
+
+                dialog.setVisible(true);
                 reset();
             }
         });
         sendList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dialog.setLocationRelativeTo(sendList);
+                dialog.setModal(true);
+                dialog.add(new JLabel("Book Details Entered!"));
+                dialog.setSize(200, 150);
                 writeBooksToFile();
+                dialog.setVisible(true);
             }
         });
     }
@@ -121,7 +132,7 @@ public class guiOne extends JFrame {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new FormLayout("fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
+        mainPanel.setLayout(new FormLayout("fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
         mainPanel.setAutoscrolls(true);
         mainPanel.setForeground(new Color(-13882309));
         mainPanel.setMinimumSize(new Dimension(800, 450));
@@ -191,9 +202,6 @@ public class guiOne extends JFrame {
         submitDetailsButton = new JButton();
         submitDetailsButton.setText("Submit Details");
         mainPanel.add(submitDetailsButton, cc.xy(1, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
-        outputField = new JTextField();
-        outputField.setForeground(new Color(-13882309));
-        mainPanel.add(outputField, cc.xy(1, 9, CellConstraints.FILL, CellConstraints.DEFAULT));
         sendList = new JButton();
         sendList.setText("Send Books List");
         mainPanel.add(sendList, cc.xy(1, 7, CellConstraints.CENTER, CellConstraints.DEFAULT));

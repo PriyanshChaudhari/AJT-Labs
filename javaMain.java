@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.util.Scanner;
 
 public class javaMain {
@@ -23,8 +24,11 @@ public class javaMain {
                     //call viewAllBooks()
                     try {
                         guiTwo guiObj2 = new guiTwo();
-                    } catch (IOException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
+                    }catch (StreamCorruptedException e){
+                        System.out.println("Stream Corrupted Exception");
+                    }
+                    catch (IOException | ClassNotFoundException e) {
+                       e.printStackTrace();
                     }
                     break;
                 case 3:
