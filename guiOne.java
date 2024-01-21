@@ -32,7 +32,6 @@ public class guiOne extends JFrame {
     private JLabel AuthorName;
     private JLabel Publication;
     private JLabel PriceofBook;
-    public JButton sendList;
     public JPanel oPpanel;
 
     JDialog dialog = new JDialog(this);
@@ -49,17 +48,12 @@ public class guiOne extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                dialog.setLocationRelativeTo(submitDetailsButton);
-                dialog.setModal(true);
-                dialog.add(new JLabel("Book Details Entered!"));
-                dialog.setSize(200, 150);
-
-                Date dateofPubl;
+                Date dateofPubl = new Date(Date.parse("01/01/2024"));
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     dateofPubl = new Date(sdf.parse(dateofPublication.getText()).getTime());
                 } catch (ParseException ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(mainPanel, "Please enter date in dd/MM/yyyy format!");
                 }
 
                 Book ipObj = new Book(Integer.parseInt(bookId.getText()),
@@ -70,38 +64,19 @@ public class guiOne extends JFrame {
                         Integer.parseInt(priceofBook.getText()));
                 booksList.add(ipObj);
 
-//                try {
-//                    //fio.writeToFile(booksList);
-//                    fio.writeToFile2(ipObj);
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
+                try {
+                    fio.writeToFile(ipObj);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
 
-
-                dialog.setVisible(true);
+                JOptionPane.showMessageDialog(mainPanel, "Book Details entered successfully!");
                 reset();
             }
         });
-        sendList.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.setLocationRelativeTo(sendList);
-                dialog.setModal(true);
-                dialog.add(new JLabel("Book Details Entered!"));
-                dialog.setSize(200, 150);
-                writeBooksToFile();
-                dialog.setVisible(true);
-            }
-        });
+
     }
 
-    public void writeBooksToFile() {
-        try {
-            fio.writeToFile(booksList);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private void reset() {
         ArrayList<JTextField> fieldList = new ArrayList<>();
@@ -132,7 +107,7 @@ public class guiOne extends JFrame {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new FormLayout("fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
+        mainPanel.setLayout(new FormLayout("fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
         mainPanel.setAutoscrolls(true);
         mainPanel.setForeground(new Color(-13882309));
         mainPanel.setMinimumSize(new Dimension(800, 450));
@@ -202,9 +177,6 @@ public class guiOne extends JFrame {
         submitDetailsButton = new JButton();
         submitDetailsButton.setText("Submit Details");
         mainPanel.add(submitDetailsButton, cc.xy(1, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
-        sendList = new JButton();
-        sendList.setText("Send Books List");
-        mainPanel.add(sendList, cc.xy(1, 7, CellConstraints.CENTER, CellConstraints.DEFAULT));
     }
 
     /**

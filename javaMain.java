@@ -24,10 +24,7 @@ public class javaMain {
                     //call viewAllBooks()
                     try {
                         guiTwo guiObj2 = new guiTwo();
-                    }catch (StreamCorruptedException e){
-                        System.out.println("Stream Corrupted Exception");
-                    }
-                    catch (IOException | ClassNotFoundException e) {
+                    }catch (IOException | ClassNotFoundException e) {
                        e.printStackTrace();
                     }
                     break;
