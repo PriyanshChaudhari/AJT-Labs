@@ -41,44 +41,52 @@ public class guiOne extends JFrame {
     FileIO fio = new FileIO();
 
     public guiOne() throws IOException {
-        setContentPane(mainPanel);
-        setSize(800, 450);
-        setVisible(true);
+        setFrame();
         submitDetailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Date dateofPubl = new Date(Date.parse("01/01/2024"));
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    dateofPubl = new Date(sdf.parse(dateofPublication.getText()).getTime());
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(mainPanel, "Please enter date in dd/MM/yyyy format!");
-                }
-
-                Book ipObj = new Book(Integer.parseInt(bookId.getText()),
-                        bookName.getText(),
-                        authorName.getText(),
-                        publication.getText(),
-                        dateofPubl,
-                        Integer.parseInt(priceofBook.getText()));
-                booksList.add(ipObj);
-
-                try {
-                    fio.writeToFile(ipObj);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-                JOptionPane.showMessageDialog(mainPanel, "Book Details entered successfully!");
-                reset();
+                writeData();
+                resetTextFields();
             }
         });
 
     }
 
+    private void setFrame() {
+        setContentPane(mainPanel);
+        setSize(800, 450);
+        setVisible(true);
+    }
 
-    private void reset() {
+    private void writeData() {
+
+        Date dateofPubl = new Date(Date.parse("01/01/2024"));
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            dateofPubl = new Date(sdf.parse(dateofPublication.getText()).getTime());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(mainPanel, "Please enter date in dd/MM/yyyy format!");
+        }
+
+        Book ipObj = new Book(Integer.parseInt(bookId.getText()),
+                bookName.getText(),
+                authorName.getText(),
+                publication.getText(),
+                dateofPubl,
+                Integer.parseInt(priceofBook.getText()));
+        booksList.add(ipObj);
+
+        try {
+            fio.writeToFile(ipObj);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        JOptionPane.showMessageDialog(mainPanel, "Book Details entered successfully!");
+    }
+
+
+    private void resetTextFields() {
         ArrayList<JTextField> fieldList = new ArrayList<>();
         fieldList.add(bookId);
         fieldList.add(bookName);

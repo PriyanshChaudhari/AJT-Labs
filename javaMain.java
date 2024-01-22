@@ -30,6 +30,11 @@ public class javaMain {
                     break;
                 case 3:
                     //call searchBook()
+                    try {
+                        guiThree guiObj3 = new guiThree();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 4:
                     //call deleteBook()

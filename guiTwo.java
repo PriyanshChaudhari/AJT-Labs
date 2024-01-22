@@ -8,7 +8,9 @@ import javax.swing.table.JTableHeader;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class guiTwo extends JFrame {
@@ -23,24 +25,33 @@ public class guiTwo extends JFrame {
     public JTableHeader detailsTableHeader;
 
     String[] columnNames = {"BookId", "BookName", "AuthorName", "Publication", "DateofPublication", "PriceofBook"};
-
     FileIO fio = new FileIO();
-
 
     public guiTwo() throws IOException, ClassNotFoundException {
         $$$setupUI$$$();
+        setFrame();
+        insertData();
+    }
+
+    private void setFrame() {
         setContentPane(mainPanel);
         setSize(800, 450);
         setVisible(true);
-        insertData();
     }
 
     public void insertData() throws IOException, ClassNotFoundException {
         ArrayList<Book> booksList = fio.readFromFile();
         DefaultTableModel addRow = (DefaultTableModel) detailsTable.getModel();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateOfPubl;
+        String doP;
         for (Book b : booksList) {
-            System.out.println(b.bookID + "\t" + b.bookName + "\t" + b.authorName + "\t" + b.publication + "\t" + b.dateofPublication + "\t" + b.priceofBook);
-            addRow.addRow(new Object[]{b.bookID, b.bookName, b.authorName, b.publication, b.dateofPublication, b.priceofBook});
+            dateOfPubl = b.dateofPublication;
+            doP = sdf.format(dateOfPubl.getTime());
+
+            System.out.println(b.bookID + "\t" + b.bookName + "\t" + b.authorName + "\t" + b.publication + "\t" + doP + "\t" + b.priceofBook);
+
+            addRow.addRow(new Object[]{b.bookID, b.bookName, b.authorName, b.publication, doP, b.priceofBook});
         }
     }
 
