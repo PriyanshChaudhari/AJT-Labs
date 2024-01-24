@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="guiThree">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.guiThree">
   <grid id="27dc6" binding="mainPanel" layout-manager="FormLayout">
     <rowspec value="center:d:noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
@@ -39,7 +39,7 @@
               <font name="Segoe UI" size="18" style="0"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
-              <text value="Search Book"/>
+              <text value="Search Book.Book"/>
             </properties>
           </component>
         </children>

@@ -1,3 +1,7 @@
+package GUI;
+
+import IO.FileIO;
+import Book.Book;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -33,8 +37,7 @@ public class guiOne extends JFrame {
     private JLabel Publication;
     private JLabel PriceofBook;
     public JPanel oPpanel;
-
-    JDialog dialog = new JDialog(this);
+    
 
     ArrayList<Book> booksList = new ArrayList<>();
 
@@ -82,7 +85,7 @@ public class guiOne extends JFrame {
             ex.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(mainPanel, "Book Details entered successfully!");
+        JOptionPane.showMessageDialog(mainPanel, "Book.Book Details entered successfully!");
     }
 
 
@@ -129,7 +132,7 @@ public class guiOne extends JFrame {
         if (titleFont != null) title.setFont(titleFont);
         title.setHorizontalAlignment(0);
         title.setHorizontalTextPosition(0);
-        title.setText("Book Entry");
+        title.setText("Book.Book Entry");
         topPanel.add(title, cc.xy(1, 1));
         detailsPanel = new JPanel();
         detailsPanel.setLayout(new FormLayout("fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow", "center:d:grow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
@@ -171,7 +174,7 @@ public class guiOne extends JFrame {
         PriceofBook = new JLabel();
         PriceofBook.setHorizontalAlignment(0);
         PriceofBook.setPreferredSize(new Dimension(100, 18));
-        PriceofBook.setText("Price of Book");
+        PriceofBook.setText("Price of Book.Book");
         detailsPanel.add(PriceofBook, cc.xy(1, 13));
         publication = new JTextField();
         publication.setPreferredSize(new Dimension(400, 30));

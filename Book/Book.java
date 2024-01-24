@@ -1,15 +1,17 @@
+package Book;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Book implements Serializable {
-    int bookID;
-    String bookName;
-    String authorName;
-    String publication;
-    Date dateofPublication;
-    int priceofBook;
-    int totalQty;
-    int totalCost;
+    public int bookID;
+    public String bookName;
+    public String authorName;
+    public String publication;
+    public Date dateofPublication;
+    public int priceofBook;
+    public int totalQty;
+    public int totalCost;
 
     public Book(){}
 
