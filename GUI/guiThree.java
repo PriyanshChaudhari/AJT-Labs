@@ -1,3 +1,7 @@
+package GUI;
+
+import Book.Book;
+import IO.FileIO;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -9,11 +13,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class guiThree extends JFrame {
@@ -108,20 +114,20 @@ public class guiThree extends JFrame {
     }
 
     public void setData() throws IOException {
-        Book opObj = new Book();
-        opObj = fio.searchBook(searchId.getText());
+        ArrayList<Book> resultList = fio.searchBook(searchId.getText());
         DefaultTableModel addRow = (DefaultTableModel) searchResult.getModel();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String doP = "01/01/2024";
-        try {
-            doP = sdf.format(opObj.dateofPublication.getTime());
-            System.out.println(opObj.bookID + "\t" + opObj.bookName + "\t" + opObj.authorName + "\t" + opObj.publication + "\t" + doP + "\t" + opObj.priceofBook);
-            addRow.addRow(new Object[]{opObj.bookID, opObj.bookName, opObj.authorName, opObj.publication, doP, opObj.priceofBook});
-            searchResult.setEnabled(true);
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(mainPanel, "No data Found!");
+        for (Book opObj : resultList) {
+            try {
+                doP = sdf.format(opObj.dateofPublication.getTime());
+                System.out.println(opObj.bookID + "\t" + opObj.bookName + "\t" + opObj.authorName + "\t" + opObj.publication + "\t" + doP + "\t" + opObj.priceofBook);
+                addRow.addRow(new Object[]{opObj.bookID, opObj.bookName, opObj.authorName, opObj.publication, doP, opObj.priceofBook});
+                searchResult.setEnabled(true);
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(mainPanel, "No data Found!");
+            }
         }
-
 
     }
 
@@ -177,7 +183,7 @@ public class guiThree extends JFrame {
         if (titleFont != null) title.setFont(titleFont);
         title.setHorizontalAlignment(0);
         title.setHorizontalTextPosition(0);
-        title.setText("Search Book");
+        title.setText("Search Book.Book");
         topPanel.add(title, cc.xy(1, 1));
         middlePanel = new JPanel();
         middlePanel.setLayout(new FormLayout("fill:d:grow,left:4dlu:noGrow,fill:d:grow", "center:d:noGrow"));

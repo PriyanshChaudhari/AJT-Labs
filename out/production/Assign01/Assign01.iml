@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jgoodies-forms-1.8.0" level="project" />
     <orderEntry type="library" name="jgoodies-common-1.8.1" level="project" />
+    <orderEntry type="library" name="mysql-connector-j-8.2.0" level="project" />
   </component>
 </module>
