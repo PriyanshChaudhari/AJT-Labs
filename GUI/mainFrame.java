@@ -3,6 +3,7 @@ package GUI;
 import IO.FileIO;
 import Book.Book;
 import IO.jdbcCRUD;
+import Listeners.*;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -66,204 +67,33 @@ public class mainFrame extends JFrame {
 
     String[] columnNames = {"BookId", "BookName", "AuthorName", "Publication", "DateofPublication", "PriceofBook"};
 
-    ArrayList<Book> booksList = new ArrayList<>();
+    public ArrayList<Book> booksList = new ArrayList<>();
 
     FileIO fio = new FileIO();
-    jdbcCRUD jCRUD = new jdbcCRUD();
+    public jdbcCRUD jCRUD = new jdbcCRUD();
 
     public mainFrame() throws IOException {
         $$$setupUI$$$();
         setFrame();
-        submitDetailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                writeData();
-                resetTextFields();
-            }
-        });
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    clearSearchResultTable();
-                    setData();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-        searchResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = searchResult.getSelectedRow();
-                    if (selectedRow != -1) {
-                    }
-                }
-            }
-        });
-        updateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = searchResult.getSelectedRow();
-                if (selectedRow != -1) {
-                    sendUpdateData(selectedRow);
-                }
-            }
-        });
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = searchResult.getSelectedRow();
-                if (selectedRow != -1) {
-                    try {
-                        deleteData(selectedRow);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-            }
-        });
-        fetchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    cleardetailsTable();
-                    insertData();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
+        SubmitDetailsButtonListener submitDetailsButtonListener = new SubmitDetailsButtonListener(this);
+        FetchButtonListener fetchButtonListener = new FetchButtonListener(this);
+        SearchResultListSelectionListener searchResultListSelectionListener = new SearchResultListSelectionListener(this);
+        SearchButtonListener searchButtonListener = new SearchButtonListener(this);
+        UpdateButtonListener updateButtonListener = new UpdateButtonListener(this);
+        DeleteButtonListener deleteButtonListener = new DeleteButtonListener(this);
+
+        submitDetailsButton.addActionListener(submitDetailsButtonListener);
+        searchButton.addActionListener(searchButtonListener);
+        searchResult.getSelectionModel().addListSelectionListener(searchResultListSelectionListener);
+        updateButton.addActionListener(updateButtonListener);
+        deleteButton.addActionListener(deleteButtonListener);
+        fetchButton.addActionListener(fetchButtonListener);
     }
 
     private void setFrame() {
         setContentPane(lowPanel);
         setSize(978, 550);
         setVisible(true);
-    }
-
-    //Tab one
-    private void writeData() {
-
-        Date dateofPubl = new Date(Date.parse("01/01/2024"));
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dateofPubl = new Date(sdf.parse(dateofPublication.getText()).getTime());
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(mainPanelT1, "Please enter date in dd/MM/yyyy format!");
-        }
-
-        Book ipObj = new Book(Integer.parseInt(bookId.getText()),
-                bookName.getText(),
-                authorName.getText(),
-                publication.getText(),
-                dateofPubl,
-                Integer.parseInt(priceofBook.getText()));
-        booksList.add(ipObj);
-
-        try {
-            jCRUD.writeToDatabase(ipObj);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        JOptionPane.showMessageDialog(mainPanelT1, "Book.Book Details entered successfully!");
-    }
-
-    private void resetTextFields() {
-        ArrayList<JTextField> fieldList = new ArrayList<>();
-        fieldList.add(bookId);
-        fieldList.add(bookName);
-        fieldList.add(authorName);
-        fieldList.add(publication);
-        fieldList.add(dateofPublication);
-        fieldList.add(priceofBook);
-        for (JTextField field : fieldList) {
-            field.setText("");
-        }
-    }
-
-    //Tab two
-    public void insertData() throws ClassNotFoundException, SQLException {
-        ArrayList<Book> booksList = jCRUD.readFromDatabase();
-        DefaultTableModel addRowT2 = (DefaultTableModel) detailsTable.getModel();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date dateOfPubl;
-        String doP;
-        for (Book b : booksList) {
-            dateOfPubl = b.dateofPublication;
-            doP = sdf.format(dateOfPubl.getTime());
-
-            System.out.println(b.bookID + "\t" + b.bookName + "\t" + b.authorName + "\t" + b.publication + "\t" + doP + "\t" + b.priceofBook);
-
-            addRowT2.addRow(new Object[]{b.bookID, b.bookName, b.authorName, b.publication, doP, b.priceofBook});
-        }
-    }
-
-    //Tab three
-    public void clearSearchResultTable() {
-        DefaultTableModel model = (DefaultTableModel) searchResult.getModel();
-        model.setRowCount(0);
-    }
-
-    public void cleardetailsTable() {
-        DefaultTableModel model = (DefaultTableModel) detailsTable.getModel();
-        model.setRowCount(0);
-    }
-
-    public void setData() throws SQLException {
-        //TODO: make multiple outputs display on table
-        ArrayList<Book> resultList = jCRUD.searchBook(searchId.getText());
-        DefaultTableModel addRowT3 = (DefaultTableModel) searchResult.getModel();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String doP = "01/01/2024";
-        if (resultList == null) {
-            JOptionPane.showMessageDialog(mainPanelT3, "No data Found!");
-        }
-        for (Book opObj : resultList) {
-            try {
-                doP = sdf.format(opObj.dateofPublication.getTime());
-                System.out.println(opObj.bookID + "\t" + opObj.bookName + "\t" + opObj.authorName + "\t" + opObj.publication + "\t" + doP + "\t" + opObj.priceofBook);
-                addRowT3.addRow(new Object[]{opObj.bookID, opObj.bookName, opObj.authorName, opObj.publication, doP, opObj.priceofBook});
-                searchResult.setEnabled(true);
-            } catch (NullPointerException ex) {
-                JOptionPane.showMessageDialog(mainPanelT3, "No data Found!");
-            }
-        }
-
-    }
-
-    public void sendUpdateData(int selectedRow) {
-        Book updateObj = new Book();
-        Date dateofPubl = new Date(Date.parse("01/01/2024"));
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dateofPubl = new Date(sdf.parse(searchResult.getValueAt(selectedRow, 4).toString()).getTime());
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(mainPanelT3, "Please enter date in dd/MM/yyyy format!");
-        }
-
-        updateObj.bookID = (int) searchResult.getValueAt(selectedRow, 0);
-        updateObj.bookName = (String) searchResult.getValueAt(selectedRow, 1);
-        updateObj.authorName = (String) searchResult.getValueAt(selectedRow, 2);
-        updateObj.publication = (String) searchResult.getValueAt(selectedRow, 3);
-        updateObj.dateofPublication = dateofPubl;
-        updateObj.priceofBook = Integer.parseInt(searchResult.getValueAt(selectedRow, 5).toString());
-        JOptionPane.showMessageDialog(mainPanelT3, "Data Updated Successfully!");
-        try {
-            jCRUD.updateBookDetails(updateObj);
-            JOptionPane.showMessageDialog(mainPanelT3, "Data Updated Successfully!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void deleteData(int selectedRow) throws SQLException {
-        jCRUD.deleteBookById((int) searchResult.getValueAt(selectedRow, 0));
-        JOptionPane.showMessageDialog(mainPanelT3, "Data deleted successfully!");
     }
 
     private void createUIComponents() {
