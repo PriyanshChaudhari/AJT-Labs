@@ -1,13 +1,94 @@
 import GUI.mainFrame;
+import IO.TCPClient;
+import IO.TCPServer;
+import IO.UDPSender;
+import IO.UDPReceiver;
 
 import java.io.IOException;
 
 public class javaMain {
-    public static void main(String[] args) {
-        try {
-            mainFrame mFObj = new mainFrame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public static void main(String[] args) throws IOException {
+//        TCPServerThread serverThread = new TCPServerThread();
+//        serverThread.start();
+//
+//        TCPClientThread clientThread = new TCPClientThread();
+//        clientThread.start();
+
+        UDPServerThread serverThread = new UDPServerThread();
+        serverThread.start();
+
+        UDPClientThread clientThread = new UDPClientThread();
+        clientThread.start();
+
+        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientDSocket());
+
+    }
+
+    static class TCPServerThread extends Thread{
+        TCPServer server;
+
+        @Override
+        public void run() {
+            try {
+                server = new TCPServer();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public TCPServer getServer() {
+            return server;
+        }
+    }
+
+    static class TCPClientThread extends Thread{
+        TCPClient client;
+
+        @Override
+        public void run() {
+            try {
+                client = new TCPClient();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public TCPClient getClient() {
+            return client;
+        }
+    }
+
+    static class UDPServerThread extends Thread{
+        UDPReceiver server;
+
+        @Override
+        public void run() {
+            try {
+                server = new UDPReceiver();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public UDPReceiver getServer() {
+            return server;
+        }
+    }
+
+    static class UDPClientThread extends Thread{
+        UDPSender client;
+
+        @Override
+        public void run() {
+            try {
+                client = new UDPSender();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public UDPSender getClient() {
+            return client;
         }
     }
 }

@@ -81,7 +81,7 @@ public class guiTwo extends JFrame {
         if (titleFont != null) title.setFont(titleFont);
         title.setHorizontalAlignment(0);
         title.setHorizontalTextPosition(0);
-        title.setText("Book.Book Details");
+        title.setText("Book Details");
         topPanel.add(title, cc.xy(1, 1));
         tableScroll = new JScrollPane();
         mainPanel.add(tableScroll, cc.xy(1, 3, CellConstraints.FILL, CellConstraints.FILL));

@@ -49,7 +49,7 @@ public class SubmitDetailsButtonListener implements ActionListener {
             ex.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(f.mainPanelT1, "Book.Book Details entered successfully!");
+        JOptionPane.showMessageDialog(f.mainPanelT1, "Book Details entered successfully!");
     }
 
     private void resetTextFields(mainFrame f) {

@@ -33,7 +33,7 @@
               <font name="Segoe UI" size="18" style="0"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
-              <text value="Book.Book Details"/>
+              <text value="Book Details"/>
             </properties>
           </component>
         </children>

@@ -1,7 +1,7 @@
 package GUI;
 
 import Book.Book;
-import IO.FileIO;
+import IO.*;
 import Listeners.*;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -16,7 +16,13 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -70,7 +76,14 @@ public class mainFrame extends JFrame {
 
     public FileIO fio = new FileIO();
 
-    public mainFrame() throws IOException {
+    Socket clientSocket;
+    Socket serverSocket;
+
+    DatagramSocket clientDSocket;
+    DatagramSocket serverDSocket;
+
+    public mainFrame(Socket clientSocket, Socket serverSocket) throws IOException {
+        this.clientSocket = clientSocket;
         $$$setupUI$$$();
         setFrame();
         SubmitDetailsButtonListener submitDetailsButtonListener = new SubmitDetailsButtonListener(this);
@@ -86,6 +99,58 @@ public class mainFrame extends JFrame {
         updateButton.addActionListener(updateButtonListener);
         deleteButton.addActionListener(deleteButtonListener);
         fetchButton.addActionListener(fetchButtonListener);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("sending file...");
+                TCPClient.sendFile(clientSocket);
+                try {
+                    System.out.println("receiving file...");
+                    TCPServer.receiveFile(serverSocket);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+    }
+
+    public mainFrame(DatagramSocket clientDSocket) throws IOException {
+        this.clientDSocket = clientDSocket;
+        $$$setupUI$$$();
+        setFrame();
+        SubmitDetailsButtonListener submitDetailsButtonListener = new SubmitDetailsButtonListener(this);
+        SearchButtonListener searchButtonListener = new SearchButtonListener(this);
+        SearchResultListSelectionListener searchResultListSelectionListener = new SearchResultListSelectionListener(this);
+        UpdateButtonListener updateButtonListener = new UpdateButtonListener(this);
+        DeleteButtonListener deleteButtonListener = new DeleteButtonListener(this);
+        FetchButtonListener fetchButtonListener = new FetchButtonListener(this);
+
+        submitDetailsButton.addActionListener(submitDetailsButtonListener);
+        searchButton.addActionListener(searchButtonListener);
+        searchResult.getSelectionModel().addListSelectionListener(searchResultListSelectionListener);
+        updateButton.addActionListener(updateButtonListener);
+        deleteButton.addActionListener(deleteButtonListener);
+        fetchButton.addActionListener(fetchButtonListener);
+
+//        addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//
+//                try {
+//                    System.out.println("sending file...");
+//                    InetAddress ia;
+//                    ia = InetAddress.getByName("localhost");
+//                    int PORT = 4999;
+//                    UDPClient.sendFile(clientDSocket, ia, PORT);
+//                    System.out.println("receiving file...");
+//                    //UDPServer.receiveFile(serverDSocket);
+//                } catch (UnknownHostException ex) {
+//                    throw new RuntimeException(ex);
+//                }
+//
+//            }
+//        });
     }
 
     private void setFrame() {
@@ -142,7 +207,7 @@ public class mainFrame extends JFrame {
         if (titleFont != null) title.setFont(titleFont);
         title.setHorizontalAlignment(0);
         title.setHorizontalTextPosition(0);
-        title.setText("Book.Book Entry");
+        title.setText("Book Entry");
         topPanel.add(title, cc.xy(1, 1));
         detailsPanel = new JPanel();
         detailsPanel.setLayout(new FormLayout("fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow", "center:d:grow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
@@ -184,7 +249,7 @@ public class mainFrame extends JFrame {
         PriceofBook = new JLabel();
         PriceofBook.setHorizontalAlignment(0);
         PriceofBook.setPreferredSize(new Dimension(100, 18));
-        PriceofBook.setText("Price of Book.Book");
+        PriceofBook.setText("Price of Book");
         detailsPanel.add(PriceofBook, cc.xy(1, 13));
         publication = new JTextField();
         publication.setPreferredSize(new Dimension(400, 30));
@@ -214,7 +279,7 @@ public class mainFrame extends JFrame {
         if (label1Font != null) label1.setFont(label1Font);
         label1.setHorizontalAlignment(0);
         label1.setHorizontalTextPosition(0);
-        label1.setText("Book.Book Details");
+        label1.setText("Book Details");
         panel3.add(label1, cc.xy(1, 1));
         tableScroll = new JScrollPane();
         tableScroll.setPreferredSize(new Dimension(350, 428));
@@ -240,7 +305,7 @@ public class mainFrame extends JFrame {
         if (label2Font != null) label2.setFont(label2Font);
         label2.setHorizontalAlignment(0);
         label2.setHorizontalTextPosition(0);
-        label2.setText("Search Book.Book");
+        label2.setText("Search Book");
         panel5.add(label2, cc.xy(1, 1));
         middlePanel = new JPanel();
         middlePanel.setLayout(new FormLayout("fill:d:grow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:36dlu:noGrow", "center:d:noGrow"));

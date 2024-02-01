@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileIO {
-    File f1 = new File("IO/Books.dat");
+    File f1 = new File("IO/ReceivedBooks.dat");
 
     public FileIO() throws IOException {
     }
@@ -121,10 +121,10 @@ public class FileIO {
     }
 
     public void updateBookDetails(Book updateObj) throws IOException {
-        System.out.println("Book.Book w/ bookId: " + updateObj.bookID + "is to be updated!");
+        System.out.println("Book w/ bookId: " + updateObj.bookID + "is to be updated!");
         deleteBookById(updateObj.bookID);
-        System.out.println("Book.Book w/ bookId: " + updateObj.bookID + "is deleted!");
+        System.out.println("Book w/ bookId: " + updateObj.bookID + "is deleted!");
         writeToFile(updateObj);
-        System.out.println("Book.Book w/ bookId: " + updateObj.bookID + "is entered!");
+        System.out.println("Book w/ bookId: " + updateObj.bookID + "is entered!");
     }
 }

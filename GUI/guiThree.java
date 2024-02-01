@@ -183,7 +183,7 @@ public class guiThree extends JFrame {
         if (titleFont != null) title.setFont(titleFont);
         title.setHorizontalAlignment(0);
         title.setHorizontalTextPosition(0);
-        title.setText("Search Book.Book");
+        title.setText("Search Book");
         topPanel.add(title, cc.xy(1, 1));
         middlePanel = new JPanel();
         middlePanel.setLayout(new FormLayout("fill:d:grow,left:4dlu:noGrow,fill:d:grow", "center:d:noGrow"));
