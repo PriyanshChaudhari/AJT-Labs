@@ -84,6 +84,7 @@ public class mainFrame extends JFrame {
 
     public mainFrame(Socket clientSocket, Socket serverSocket) throws IOException {
         this.clientSocket = clientSocket;
+        this.serverSocket = serverSocket;
         $$$setupUI$$$();
         setFrame();
         SubmitDetailsButtonListener submitDetailsButtonListener = new SubmitDetailsButtonListener(this);

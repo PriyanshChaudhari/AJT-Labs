@@ -49,11 +49,11 @@ public class TCPServer {
             bytesRead = s.getInputStream().read(fileBytes);
             fos.write(fileBytes, 0, bytesRead);
         }
-        fos.close();
-        dos.close();
 //		while ((bytesRead = s.getInputStream().read(fileBytes)) > 0) {
 //			fos.write(fileBytes, 0, bytesRead);
 //		}
+        fos.close();
+        dos.close();
         System.out.println("File received from client.");
     }
 }

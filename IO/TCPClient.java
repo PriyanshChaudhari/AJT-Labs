@@ -44,7 +44,6 @@ public class TCPClient {
 
                 cs.getOutputStream().write(fileBytes);
                 fis.close();
-                dis.close();
                 System.out.println("File sent to server.");
             } else {
                 System.out.println("File not found.");

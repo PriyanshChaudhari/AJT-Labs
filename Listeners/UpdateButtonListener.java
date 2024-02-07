@@ -44,7 +44,6 @@ public class UpdateButtonListener implements ActionListener {
         updateObj.publication = (String) f.searchResult.getValueAt(selectedRow, 3);
         updateObj.dateofPublication = dateofPubl;
         updateObj.priceofBook = Integer.parseInt(f.searchResult.getValueAt(selectedRow, 5).toString());
-        JOptionPane.showMessageDialog(f.mainPanelT3, "Data Updated Successfully!");
         try {
             f.fio.updateBookDetails(updateObj);
             refreshAfterUpdate.fireTableDataChanged();

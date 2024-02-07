@@ -8,19 +8,23 @@ import java.io.IOException;
 
 public class javaMain {
     public static void main(String[] args) throws IOException {
-//        TCPServerThread serverThread = new TCPServerThread();
-//        serverThread.start();
-//
-//        TCPClientThread clientThread = new TCPClientThread();
-//        clientThread.start();
+        TCPServerThread serverThread = new TCPServerThread();
+        serverThread.setPriority(Thread.MAX_PRIORITY);
 
-        UDPServerThread serverThread = new UDPServerThread();
+        TCPClientThread clientThread = new TCPClientThread();
+        clientThread.setPriority(Thread.NORM_PRIORITY);
+
         serverThread.start();
-
-        UDPClientThread clientThread = new UDPClientThread();
         clientThread.start();
 
-        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientDSocket());
+//        UDPServerThread serverThread = new UDPServerThread();
+//        serverThread.start();
+//
+//        UDPClientThread clientThread = new UDPClientThread();
+//        clientThread.start();
+
+        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientSocket(), serverThread.getServer().getserverSocket());
+//        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientDSocket());
 
     }
 
