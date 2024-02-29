@@ -7,25 +7,16 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -77,7 +68,9 @@ public class mainFrame extends JFrame {
     public FileIO fio = new FileIO();
 
     Socket clientSocket;
+    Socket encryptedClientSocket;
     Socket serverSocket;
+    Socket encryptedServerSocket;
 
     DatagramSocket clientDSocket;
     DatagramSocket serverDSocket;
@@ -111,6 +104,45 @@ public class mainFrame extends JFrame {
                     TCPServer.receiveFile(serverSocket);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
+                }
+            }
+        });
+    }
+
+    public mainFrame(Socket encryptedClientSocket, Socket encryptedServerSocket, boolean isEncrypted) throws IOException {
+        this.encryptedClientSocket = encryptedClientSocket;
+        this.encryptedServerSocket = encryptedServerSocket;
+        $$$setupUI$$$();
+        setFrame();
+        SubmitDetailsButtonListener submitDetailsButtonListener = new SubmitDetailsButtonListener(this);
+        SearchButtonListener searchButtonListener = new SearchButtonListener(this);
+        SearchResultListSelectionListener searchResultListSelectionListener = new SearchResultListSelectionListener(this);
+        UpdateButtonListener updateButtonListener = new UpdateButtonListener(this);
+        DeleteButtonListener deleteButtonListener = new DeleteButtonListener(this);
+        FetchButtonListener fetchButtonListener = new FetchButtonListener(this);
+
+        submitDetailsButton.addActionListener(submitDetailsButtonListener);
+        searchButton.addActionListener(searchButtonListener);
+        searchResult.getSelectionModel().addListSelectionListener(searchResultListSelectionListener);
+        updateButton.addActionListener(updateButtonListener);
+        deleteButton.addActionListener(deleteButtonListener);
+        fetchButton.addActionListener(fetchButtonListener);
+
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    System.out.println("sending file...");
+                    //EncryptedClient.sendFile(encryptedClientSocket);
+                } catch (Exception en) {
+                    en.printStackTrace();
+                }
+                try {
+                    System.out.println("receiving file...");
+                    //EncryptedServer.receiveFile(encryptedServerSocket);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         });

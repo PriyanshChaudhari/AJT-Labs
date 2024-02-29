@@ -1,21 +1,18 @@
 import GUI.mainFrame;
-import IO.TCPClient;
-import IO.TCPServer;
-import IO.UDPSender;
-import IO.UDPReceiver;
+import IO.*;
 
 import java.io.IOException;
 
 public class javaMain {
     public static void main(String[] args) throws IOException {
-        TCPServerThread serverThread = new TCPServerThread();
-        serverThread.setPriority(Thread.MAX_PRIORITY);
-
-        TCPClientThread clientThread = new TCPClientThread();
-        clientThread.setPriority(Thread.NORM_PRIORITY);
-
-        serverThread.start();
-        clientThread.start();
+//        TCPServerThread serverThread = new TCPServerThread();
+//        serverThread.setPriority(Thread.MAX_PRIORITY);
+//
+//        TCPClientThread clientThread = new TCPClientThread();
+//        clientThread.setPriority(Thread.NORM_PRIORITY);
+//
+//        serverThread.start();
+//        clientThread.start();
 
 //        UDPServerThread serverThread = new UDPServerThread();
 //        serverThread.start();
@@ -23,7 +20,17 @@ public class javaMain {
 //        UDPClientThread clientThread = new UDPClientThread();
 //        clientThread.start();
 
-        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientSocket(), serverThread.getServer().getserverSocket());
+        EncryptedServerThread encryptedServerThread = new EncryptedServerThread();
+        encryptedServerThread.setPriority(Thread.MAX_PRIORITY);
+
+        EncryptedClientThread encryptedClientThread = new EncryptedClientThread();
+        encryptedClientThread.setPriority(Thread.NORM_PRIORITY);
+
+        encryptedClientThread.start();
+        encryptedServerThread.start();
+
+//        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientSocket(), serverThread.getServer().getserverSocket());
+        mainFrame mFObj = new mainFrame(encryptedClientThread.getClient().getclientSocket(), encryptedServerThread.getServer().getserverSocket(), true);
 //        mainFrame mFObj = new mainFrame(clientThread.getClient().getclientDSocket());
 
     }
@@ -58,6 +65,40 @@ public class javaMain {
         }
 
         public TCPClient getClient() {
+            return client;
+        }
+    }
+
+    static class EncryptedServerThread extends Thread{
+        EncryptedServer server;
+
+        @Override
+        public void run() {
+            try {
+                server = new EncryptedServer();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public EncryptedServer getServer() {
+            return server;
+        }
+    }
+
+    static class EncryptedClientThread extends Thread{
+        EncryptedClient client;
+
+        @Override
+        public void run() {
+            try {
+                client = new EncryptedClient();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public EncryptedClient getClient() {
             return client;
         }
     }
