@@ -45,11 +45,11 @@ public class SubmitDetailsButtonListener implements ActionListener {
 
         try {
             f.fio.writeToFile(ipObj);
+            JOptionPane.showMessageDialog(f.mainPanelT1, "Book Details entered successfully!");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(f.mainPanelT1, "Book.Book Details entered successfully!");
     }
 
     private void resetTextFields(mainFrame f) {

@@ -1,12 +1,12 @@
 import GUI.mainFrame;
-
-import java.io.IOException;
+import RMI.RMIFileClient;
+import RMI.RMIFileServer;
 
 public class javaMain {
     public static void main(String[] args) {
         try {
             mainFrame mFObj = new mainFrame();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

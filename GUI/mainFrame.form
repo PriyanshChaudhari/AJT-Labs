@@ -69,7 +69,7 @@
                           <font name="Segoe UI" size="18" style="0"/>
                           <horizontalAlignment value="0"/>
                           <horizontalTextPosition value="0"/>
-                          <text value="Book.Book Entry"/>
+                          <text value="Book Entry"/>
                         </properties>
                       </component>
                     </children>
@@ -200,7 +200,7 @@
                         <properties>
                           <horizontalAlignment value="0"/>
                           <preferredSize width="100" height="18"/>
-                          <text value="Price of Book.Book"/>
+                          <text value="Price of Boo"/>
                         </properties>
                       </component>
                       <component id="fda89" class="javax.swing.JTextField" binding="publication">
@@ -296,7 +296,7 @@
                           <font name="Segoe UI" size="18" style="0"/>
                           <horizontalAlignment value="0"/>
                           <horizontalTextPosition value="0"/>
-                          <text value="Book.Book Details"/>
+                          <text value="Book Details"/>
                         </properties>
                       </component>
                     </children>
@@ -378,7 +378,7 @@
                           <font name="Segoe UI" size="18" style="0"/>
                           <horizontalAlignment value="0"/>
                           <horizontalTextPosition value="0"/>
-                          <text value="Search Book.Book"/>
+                          <text value="Search Book"/>
                         </properties>
                       </component>
                     </children>

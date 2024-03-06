@@ -142,7 +142,7 @@ public class mainFrame extends JFrame {
         if (titleFont != null) title.setFont(titleFont);
         title.setHorizontalAlignment(0);
         title.setHorizontalTextPosition(0);
-        title.setText("Book.Book Entry");
+        title.setText("Book Entry");
         topPanel.add(title, cc.xy(1, 1));
         detailsPanel = new JPanel();
         detailsPanel.setLayout(new FormLayout("fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow", "center:d:grow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
@@ -184,7 +184,7 @@ public class mainFrame extends JFrame {
         PriceofBook = new JLabel();
         PriceofBook.setHorizontalAlignment(0);
         PriceofBook.setPreferredSize(new Dimension(100, 18));
-        PriceofBook.setText("Price of Book.Book");
+        PriceofBook.setText("Price of Boo");
         detailsPanel.add(PriceofBook, cc.xy(1, 13));
         publication = new JTextField();
         publication.setPreferredSize(new Dimension(400, 30));
@@ -214,7 +214,7 @@ public class mainFrame extends JFrame {
         if (label1Font != null) label1.setFont(label1Font);
         label1.setHorizontalAlignment(0);
         label1.setHorizontalTextPosition(0);
-        label1.setText("Book.Book Details");
+        label1.setText("Book Details");
         panel3.add(label1, cc.xy(1, 1));
         tableScroll = new JScrollPane();
         tableScroll.setPreferredSize(new Dimension(350, 428));
@@ -240,7 +240,7 @@ public class mainFrame extends JFrame {
         if (label2Font != null) label2.setFont(label2Font);
         label2.setHorizontalAlignment(0);
         label2.setHorizontalTextPosition(0);
-        label2.setText("Search Book.Book");
+        label2.setText("Search Book");
         panel5.add(label2, cc.xy(1, 1));
         middlePanel = new JPanel();
         middlePanel.setLayout(new FormLayout("fill:d:grow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:max(d;4px):noGrow,left:36dlu:noGrow", "center:d:noGrow"));
