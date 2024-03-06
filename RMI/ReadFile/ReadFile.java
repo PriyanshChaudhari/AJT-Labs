@@ -1,4 +1,4 @@
-package RMI;
+package RMI.ReadFile;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

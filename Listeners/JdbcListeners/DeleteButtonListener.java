@@ -1,12 +1,12 @@
-package Listeners;
+package Listeners.JdbcListeners;
 
-import GUI.mainFrame;
+import GUI.JDBC.mainFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class DeleteButtonListener implements ActionListener {
     mainFrame mFObj;
@@ -21,15 +21,15 @@ public class DeleteButtonListener implements ActionListener {
         if (selectedRow != -1) {
             try {
                 deleteData(selectedRow, mFObj);
-            } catch (IOException ex) {
+            } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         }
     }
 
-    public void deleteData(int selectedRow, mainFrame f) throws IOException {
+    public void deleteData(int selectedRow, mainFrame f) throws SQLException {
         DefaultTableModel refreshAfterDelete = (DefaultTableModel) f.searchResult.getModel();
-        f.fio.deleteBookById((int) f.searchResult.getValueAt(selectedRow, 0));
+        f.jCRUD.deleteBookById((int) f.searchResult.getValueAt(selectedRow, 0));
         refreshAfterDelete.fireTableDataChanged();
         JOptionPane.showMessageDialog(f.mainPanelT3, "Data deleted successfully!");
     }

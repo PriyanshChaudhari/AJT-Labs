@@ -1,4 +1,4 @@
-package RMI;
+package RMI.ReadFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,12 +7,12 @@ import java.rmi.Naming;
 
 public class RMIFileClient {
 
-    File f1 = new File("IO/Books.dat");
+    File f1 = new File("IO/FileIO/Books.dat");
 
     public RMIFileClient(){
         try{
-            ReadFile stub=(ReadFile) Naming.lookup("rmi://localhost:5000/readf");
-            byte[] fileData = stub.readFile("./RMI/Data.txt");
+            ReadFile stub=(ReadFile) Naming.lookup("rmi://localhost:5000/readFile");
+            byte[] fileData = stub.readFile("RMI/ReadFile/Data.txt");
             System.out.println(new String(fileData));
             writeFile(fileData);
         }catch(Exception e){

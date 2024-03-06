@@ -1,7 +1,7 @@
-package Listeners;
+package Listeners.FileIOListeners;
 
 import Book.Book;
-import GUI.mainFrame;
+import GUI.FileIO.mainFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

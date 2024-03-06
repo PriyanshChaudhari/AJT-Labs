@@ -1,12 +1,12 @@
-package Listeners;
+package Listeners.JdbcListeners;
 
 import Book.Book;
-import GUI.mainFrame;
+import GUI.JDBC.mainFrame;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -22,15 +22,15 @@ public class FetchButtonListener implements ActionListener {
         try {
             cleardetailsTable(mFObj);
             insertData(mFObj);
-        } catch (IOException ex) {
+        } catch (SQLException ex) {
             throw new RuntimeException(ex);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
     }
 
-    public void insertData(mainFrame f) throws IOException, ClassNotFoundException {
-        ArrayList<Book> booksList = f.fio.readFromFile();
+    public void insertData(mainFrame f) throws SQLException, ClassNotFoundException {
+        ArrayList<Book> booksList = f.jCRUD.readFromDatabase();
         DefaultTableModel addRowT2 = (DefaultTableModel) f.detailsTable.getModel();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date dateOfPubl;

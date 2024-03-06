@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.mainFrame">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.JDBC.mainFrame">
   <grid id="27dc6" binding="lowPanel" layout-manager="FormLayout">
     <rowspec value="center:d:grow"/>
     <colspec value="fill:d:grow"/>
@@ -200,7 +200,7 @@
                         <properties>
                           <horizontalAlignment value="0"/>
                           <preferredSize width="100" height="18"/>
-                          <text value="Price of Boo"/>
+                          <text value="Price of Book.Book"/>
                         </properties>
                       </component>
                       <component id="fda89" class="javax.swing.JTextField" binding="publication">

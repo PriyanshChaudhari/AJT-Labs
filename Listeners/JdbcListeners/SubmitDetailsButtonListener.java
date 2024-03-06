@@ -1,13 +1,13 @@
-package Listeners;
+package Listeners.JdbcListeners;
 
 import Book.Book;
-import GUI.mainFrame;
+import GUI.JDBC.mainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class SubmitDetailsButtonListener implements ActionListener {
     public SubmitDetailsButtonListener(mainFrame mF){
         this.mFObj = mF;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -44,9 +45,9 @@ public class SubmitDetailsButtonListener implements ActionListener {
         f.booksList.add(ipObj);
 
         try {
-            f.fio.writeToFile(ipObj);
-            JOptionPane.showMessageDialog(f.mainPanelT1, "Book Details entered successfully!");
-        } catch (IOException ex) {
+            f.jCRUD.writeToDatabase(ipObj);
+            JOptionPane.showMessageDialog(f.mainPanelT1, "Book.Book Details entered successfully!");
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
 

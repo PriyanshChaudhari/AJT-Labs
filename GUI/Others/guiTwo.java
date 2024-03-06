@@ -1,7 +1,7 @@
-package GUI;
+package GUI.Others;
 
 import Book.Book;
-import IO.FileIO;
+import IO.FileIO.FileIO;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 

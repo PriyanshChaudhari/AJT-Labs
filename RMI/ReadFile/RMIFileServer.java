@@ -1,4 +1,4 @@
-package RMI;
+package RMI.ReadFile;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -10,7 +10,7 @@ public class RMIFileServer {
             try {
                 stub = new ReadFileRemote();
                 System.out.println("File server ready.");
-                Naming.rebind("rmi://localhost:5000/readf", stub);
+                Naming.rebind("rmi://localhost:5000/readFile", stub);
             } catch (RemoteException | MalformedURLException ex) {
                 throw new RuntimeException(ex);
             }

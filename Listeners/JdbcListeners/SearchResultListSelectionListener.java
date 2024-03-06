@@ -1,6 +1,6 @@
-package Listeners;
+package Listeners.JdbcListeners;
 
-import GUI.mainFrame;
+import GUI.JDBC.mainFrame;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;

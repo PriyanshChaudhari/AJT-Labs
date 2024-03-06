@@ -1,4 +1,4 @@
-package IO;
+package IO.FileIO;
 
 import Book.Book;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileIO {
-    File f1 = new File("IO/Books.dat");
+    File f1 = new File("IO/FileIO/Books.dat");
 
     public FileIO() throws IOException {
     }
