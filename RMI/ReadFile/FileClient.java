@@ -5,11 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.Naming;
 
-public class RMIFileClient {
+public class FileClient {
 
     File f1 = new File("IO/FileIO/Books.dat");
 
-    public RMIFileClient(){
+    public FileClient(){
         try{
             ReadFile stub=(ReadFile) Naming.lookup("rmi://localhost:5000/readFile");
             byte[] fileData = stub.readFile("RMI/ReadFile/Data.txt");
@@ -37,6 +37,6 @@ public class RMIFileClient {
     }
 
     public static void main(String[] args) {
-        RMIFileClient client = new RMIFileClient();
+        FileClient client = new FileClient();
     }
 }

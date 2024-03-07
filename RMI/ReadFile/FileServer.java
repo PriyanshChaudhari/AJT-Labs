@@ -4,8 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
-public class RMIFileServer {
-        public RMIFileServer(){
+public class FileServer {
+        public FileServer(){
             ReadFileRemote stub = null;
             try {
                 stub = new ReadFileRemote();
@@ -17,6 +17,6 @@ public class RMIFileServer {
         }
 
     public static void main(String[] args) {
-        RMIFileServer server = new RMIFileServer();
+        FileServer server = new FileServer();
     }
 }

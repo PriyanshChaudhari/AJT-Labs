@@ -2,7 +2,7 @@ package Listeners.JdbcListeners;
 
 import Book.Book;
 import GUI.JDBC.mainFrame;
-import RMI.SearchBook.RMISearchClient;
+import RMI.SearchBook.SearchClient;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class SearchButtonListener implements ActionListener {
     mainFrame mFObj;
-    RMISearchClient searchClient = new RMISearchClient();
+    SearchClient searchClient = new SearchClient();
 
     public SearchButtonListener(mainFrame mF){
         this.mFObj = mF;

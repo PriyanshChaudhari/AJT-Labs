@@ -6,9 +6,9 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class RMISearchClient {
+public class SearchClient {
     public SearchBook stub;
-    public RMISearchClient(){
+    public SearchClient(){
         try {
             this.stub = (SearchBook) Naming.lookup("rmi://localhost:5000/searchBook");
         }catch (Exception e){
@@ -24,7 +24,7 @@ public class RMISearchClient {
     }
 
     public static void main(String[] args) {
-        RMISearchClient searchClient = new RMISearchClient();
+        SearchClient searchClient = new SearchClient();
         try {
             ArrayList<Book> resultSet = searchClient.searchRemote(searchClient.stub, "102");
             System.out.println(resultSet);

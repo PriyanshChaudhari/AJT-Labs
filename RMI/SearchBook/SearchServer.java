@@ -2,8 +2,8 @@ package RMI.SearchBook;
 
 import java.rmi.Naming;
 
-public class RMISearchServer {
-    public RMISearchServer(){
+public class SearchServer {
+    public SearchServer(){
         SearchBookRemote stub =  null;
         try {
             stub = new SearchBookRemote();
@@ -15,6 +15,6 @@ public class RMISearchServer {
     }
 
     public static void main(String[] args) {
-        RMISearchServer searchServer = new RMISearchServer();
+        SearchServer searchServer = new SearchServer();
     }
 }
