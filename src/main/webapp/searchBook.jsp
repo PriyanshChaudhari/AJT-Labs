@@ -1,7 +1,8 @@
 <%@ page import="ajt.assign05.SearchBookServlet" %>
+<%@ page import="java.util.ArrayList" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%! SearchBookServlet searchBook = new SearchBookServlet(); %>
+<%! SearchBookServlet searchBook = new SearchBookServlet();%>
 <html>
 <head>
     <title>Search Book</title>
@@ -34,6 +35,26 @@
                         bookTable.appendChild(row);
                     });
                     resultDiv.appendChild(bookTable);
+                });
+        }
+
+        function handleLogout() {
+            fetch('logout-http-session', {
+                method: 'POST',
+            })
+                .then(() => {
+                    // Redirect to the login page
+                    window.location.href = 'index.jsp';
+                });
+        }
+
+        function handleLogoutCookie() {
+            fetch('logout-cookie', {
+                method: 'POST',
+            })
+                .then(() => {
+                    // Redirect to the login page
+                    window.location.href = 'index.jsp';
                 });
         }
     </script>
@@ -74,6 +95,35 @@
     </style>
 </head>
 <body>
+<div>
+    <h3>
+        <% String usernameFromSession = (String) request.getSession().getAttribute("username");
+            if (usernameFromSession != null) {%>
+        <%= "Welcome " + usernameFromSession + "<br /><h4>(username taken from Session Storage)</h4><br /><button id=\"logoutButton\" onclick=\"handleLogout()\">Logout</button>"%>
+        <%} else {%>
+        <%= "Welcome Guest" + "<br />"%>
+        <%}%>
+    </h3>
+    <h3>
+        <%
+            String usernameFromCookie = null;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("username")) {
+                        usernameFromCookie = cookie.getValue();
+                        break;
+                    }
+                }
+            }
+            if (usernameFromCookie != null) {
+        %>
+        <%= "Welcome " + usernameFromCookie + "<br /><h4>(username taken from cookies)</h4><br /><button id=\"logout-cookie-Button\" onclick=\"handleLogoutCookie()\">Logout</button>"%>
+        <%} else {%>
+        <%= "Welcome Guest" + "<br />"%>
+        <%}%>
+    </h3>
+</div>
 <div id="container">
     <form id="searchBookForm" onsubmit="event.preventDefault();searchBook()">
         <label>

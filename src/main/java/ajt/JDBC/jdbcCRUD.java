@@ -1,4 +1,4 @@
-package ajt.IO;
+package ajt.JDBC;
 
 import ajt.Book.Book;
 

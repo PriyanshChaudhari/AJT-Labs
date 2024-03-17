@@ -8,8 +8,12 @@
 <h1><%= "Assignment 05" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="currentTime">Get Current Time</a>
 <br/>
 <a href="searchbook">Search Book</a>
+<br/>
+<a href="login-with-http-session">Login to Search Book using HttpSession</a>
+<br/>
+<a href="login-with-cookie">Login to Search Book using Cookies</a>
 </body>
 </html>

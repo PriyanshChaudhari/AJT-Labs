@@ -12,4 +12,28 @@
         <servlet-name>searchBookJsp</servlet-name>
         <url-pattern>/searchbook</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>currentTimeJsp</servlet-name>
+        <jsp-file>/currentTime.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>currentTimeJsp</servlet-name>
+        <url-pattern>/currentTime</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>login-with-http-sessionJsp</servlet-name>
+        <jsp-file>/login-with-http-session.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login-with-http-sessionJsp</servlet-name>
+        <url-pattern>/login-with-http-session</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>login-with-cookieJsp</servlet-name>
+        <jsp-file>/login-with-cookie.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login-with-cookieJsp</servlet-name>
+        <url-pattern>/login-with-cookie</url-pattern>
+    </servlet-mapping>
 </web-app>

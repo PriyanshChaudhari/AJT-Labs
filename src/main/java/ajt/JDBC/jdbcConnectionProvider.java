@@ -1,4 +1,4 @@
-package ajt.IO;
+package ajt.JDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
