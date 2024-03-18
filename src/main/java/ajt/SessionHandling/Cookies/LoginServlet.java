@@ -7,6 +7,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -23,8 +24,8 @@ public class LoginServlet extends HttpServlet {
         resp.addCookie(userCookie);
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        JSONObject json = new JSONObject();
         System.out.println("auth success at loginservlet");
+        JSONObject json = new JSONObject();
         json.put("status", "success");
         out.print(json.toString());
     }

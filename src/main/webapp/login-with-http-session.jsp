@@ -29,10 +29,12 @@
                 })
                 .then(data => {
                     // handle the response data
-                    if (data.status === 'success') {
+                    var status = data.status;
+                    var message = data.message;
+                    if (status === 'success') {
                         window.location.href = 'searchBook.jsp'; // redirect to searchBook.jsp
-                    } else if (data.status === 'error') {
-                        alert(data.message); // show an alert with the error message
+                    } else if (status === 'error') {
+                        alert(message); // show an alert with the error message
                     }
                 })
                 .catch(error => {

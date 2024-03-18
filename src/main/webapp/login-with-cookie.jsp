@@ -28,7 +28,8 @@
                     return response.json(); // parse the response as JSON
                 })
                 .then(data => {
-                    // handle the response data
+                    var status = data.status;
+                    var message = data.message;
                     if (data.status === 'success') {
                         window.location.href = 'searchBook.jsp'; // redirect to searchBook.jsp
                     } else if (data.status === 'error') {
